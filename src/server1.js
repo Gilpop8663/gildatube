@@ -1,8 +1,8 @@
 import express from "express";
 
-const app = express();
+// const app = express();
 
-const PORT = 5000;
+// const PORT = 5000;
 
 const urlMiddleware = (req, res, next) => {
   console.log("Path:", req.url);

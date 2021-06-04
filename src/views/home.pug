@@ -8,5 +8,8 @@ block content
                     li 
                         a(href="/videos/upload") Upload Video
     h2 Welcome her you will see the trending videos 
-    each potato in videos 
-        +video(potato)
+    each video in videos 
+        +video(video)
+    else 
+        li not found video
+            
