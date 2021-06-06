@@ -2,7 +2,7 @@ import Video from "../models/Video";
 // Video.find({}, (error, videos) =>{};
 
 export const home = async(req,res) =>{
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort( {createdAt:"desc"});
     return res.render("home" , {pageTitle : "Home",videos });
    };
 
@@ -32,7 +32,7 @@ export const postEdit = async (req,res) => {
     return res.render("404",{pageTitle:"Video not found."});
   }
   await Video.findByIdAndUpdate(id,{
-    title,description,hashtags: hashtags.split(",").map((word) => (word.startsWith('#') ? word : `#${word}`)),
+    title,description,hashtags: Video.formatHashtags(hashtags),
   });
   return res.redirect(`/videos/${id}`);
 };
@@ -46,11 +46,31 @@ export const postUpload = async (req, res) => {
   await Video.create({
     title,
     description,
-    hashtags: hashtags.split(",").map((word) => word.startsWith('#') ? word : `#${word}`),
+    hashtags: Video.formatHashtags(hashtags),
     meta: {
       views: 0,
       rating: 0,
     },
   });
   return res.redirect("/");
+};
+
+export const deleteVideo = async (req,res) =>{
+  const { id } = req.params;
+  await Video.findByIdAndDelete(id);
+  //delete video
+  return res.redirect("/");
+}
+
+export const search = async (req,res) =>{
+  const { keyword } = req.query;
+  let videos = []
+  if (keyword){
+     videos = await Video.find({
+      title: {
+        $regex: new RegExp(keyword,"i")
+      },
+    })
+  }
+  return res.render("search",{ pageTitle : "Search" , videos });
 };
