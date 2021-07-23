@@ -1,0 +1,21 @@
+div.edit-video{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    color:$green;
+}
+
+form.edit-video__form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 50px;
+}
+
+.edit-video__input{
+    height: 30px;
+
+}

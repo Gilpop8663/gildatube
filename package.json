@@ -4,7 +4,8 @@
   "description": "my first video website",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
+    "dev": "nodemon",
+    "assets": "webpack --config webpack.config.js",
     "adad": "nodemon --exec babel-node src/server1.js"
   },
   "repository": {
@@ -18,20 +19,37 @@
   },
   "homepage": "https://github.com/Gilpop8663/gildatube#readme",
   "dependencies": {
+    "@babel/runtime": "^7.14.8",
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.7",
+    "babel-polyfill": "^6.26.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.4.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
+    "flash-express": "^1.0.4",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
+    "@babel/core": "^7.14.6",
     "@babel/node": "^7.14.2",
-    "@babel/preset-env": "^7.14.2",
-    "nodemon": "^2.0.7"
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.6",
+    "mini-css-extract-plugin": "^1.6.0",
+    "nodemon": "^2.0.7",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
   }
 }

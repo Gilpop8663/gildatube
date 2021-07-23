@@ -3,9 +3,16 @@ include mixins/video
 
 
 block content
-    h2 Welcome her you will see the trending videos 
-    each video in videos 
-        +video(video)
-    else 
-        li not found video
-            
+    h2.welcome 길다튜브에 오신것을 환영합니다
+    div.video-grid
+        each video in videos 
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+        else 
+            li not found video
+                

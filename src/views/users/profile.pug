@@ -1,0 +1,18 @@
+extends ../base
+include ../mixins/video
+
+block content
+    div.user-profile
+        img.user-profile__avatarImg(src="/" + loggedInUser.avatarUrl , alt="")
+        div.user-profile__username #{loggedInUser.username}의 Profile
+        div.video-grid
+            each video in user.videos 
+                +video(video)
+                +video(video)
+                +video(video)
+                +video(video)
+                +video(video)
+                +video(video)
+                +video(video)
+            else 
+                li not found video

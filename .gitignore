@@ -2,3 +2,5 @@
 package-lock.json
 babel.config.json
 .env
+/uploads
+/assets

@@ -3,6 +3,7 @@ import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 import { token } from "morgan";
+import Video from "../models/Video";
 
 export const getJoin = (req, res) => res.render("join",{pageTitle:"Join"})
 export const postJoin = async (req, res) => {
@@ -61,9 +62,10 @@ export const postJoin = async (req, res) => {
     };
     export const logout = (req,res) =>{
       req.session.destroy();//쿠키 세션의 user의 session 을 파괴함
+      req.flash("info", "Bye Bye");
       return res.redirect("/");
     };
-    export const see = (req,res) => res.send("See User");
+
     
     export const startGithubLogin = (req,res) =>{
       const baseUrl = "https://github.com/login/oauth/authorize";
@@ -115,7 +117,7 @@ export const postJoin = async (req, res) => {
           let user = await User.findOne({email : emailObj.email}) //우리의 데이터에서 이미 해당 이메일을 가지고 있는지 체크한다
           if (!user){
             user = await User.create({  /// 우리의 데이터에서 해당 이메일이 없으므로 새롭게 user 데이터에서 유저의 데이터를 깃허브에서 준 데이터를 바탕으로 만들어준다
-              avatalUrl:userData.avatar_url,
+              avatarUrl:userData.avatar_url,
               name:userData.name ? userData.name:"Unknown",
               username:userData.login,
               email:emailObj.email,
@@ -139,20 +141,22 @@ export const getEdit = (req,res) => {
 
 export const postEdit = async (req,res) =>{
   const { session:{
-    user : { _id }
+    user : { _id , avatarUrl}
   },
-  body:{name,email,username,location} 
+  body:{name,email,username,location},
+  file, 
 } = req;
+// console.log(req.session.user)
+// console.log(file.path)
+// const exists = await User.exists({ $or: [{ username }, { email }] });
+//     if (exists) {
+//       return res.status(400).render("edit-profile", {
+//         pageTitle:"Edit Profile",
+//         errorMessage: "This username/email is already taken.",
+//       });
+//     };
 
-const exists = await User.exists({ $or: [{ username }, { email }] });
-    if (exists) {
-      return res.status(400).render("edit-profile", {
-        pageTitle:"Edit Profile",
-        errorMessage: "This username/email is already taken.",
-      });
-    };
-
-const updatedUser =await User.findByIdAndUpdate(_id,{
+const updatedUser =await User.findByIdAndUpdate(_id,{ avatarUrl: file ? file.path : avatarUrl,
     name,email,username,location
   },{new:true}
   );
@@ -163,6 +167,7 @@ const updatedUser =await User.findByIdAndUpdate(_id,{
 
 export const getChangePassword = async (req,res) =>{
   if (req.session.user.socialOnly === true){
+    req.flash("error", "Can't change password.");
     return res.redirect("/");
   }
   return res.render("change-password",{pageTitle:"Change Password"})
@@ -180,10 +185,19 @@ export const postChangePassword = async (req,res) =>{
     if(newPassword !== newPasswordConfirmation){
       return res.status(400).render("change-password",{pageTitle:"Change Password",errorMessage:"The password does not match the confirmation"})
     }
-    console.log("Old",user.password);
+
     user.password = newPassword;
-    console.log("New",user.password);
+
     await user.save();
-    console.log("Newhash",user.password);
+    req.flash("info", "Password updated");
   return res.redirect("/users/logout")
+}
+
+export const see = async (req,res) => {
+  const {id} = req.params;
+  const user = await User.findById(id).populate("videos");
+  if(!user){
+    return res.status(404).render("404",{pageTitle:"User not found."})
+  }
+  return res.render("users/profile",{pageTitle:`${user.name}`,user})
 }

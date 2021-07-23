@@ -1,0 +1,33 @@
+
+a.video-mixin{
+    display: flex; 
+    flex-direction: column;
+    max-width: 300px;
+    min-width: 250px;
+}
+
+div.video-mixin__thumbnail{
+    width: 100%;
+    min-width: 100%;
+    height: 180px;
+    background-color: $magnolia;
+}
+
+div.video-mixin__data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    margin: 10px 0px 0px 5px;
+}
+
+span.video-mixin__title{
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+div.video-mixin__meta{
+    font-size: 14px;
+    color:rgba($color: #FFFFFF, $alpha: 0.8);
+}

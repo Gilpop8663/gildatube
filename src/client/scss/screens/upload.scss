@@ -1,0 +1,45 @@
+video.record-video__preview{
+    width: 600px;
+    height: 400px;
+    border-radius: 15px;
+}
+
+.record-video{
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.record-video__btn{
+    width: 200px;
+    height: 75px;
+    color:$magnolia;
+    background-color: #183153;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: rgba($color: #183153, $alpha: 0.6) 0px 7px 3px 0px;
+    margin-top: 20px;
+}
+
+.upload-video__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.upload-video__input{
+    width: 50%;
+    height: 30px;
+    border-radius: 10px;
+    &::placeholder{
+        padding-left: 15px;
+        font-size: 14px;
+    }
+}
