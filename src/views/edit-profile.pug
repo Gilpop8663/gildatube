@@ -2,7 +2,10 @@ extends base
 
 block content 
     div.edit-profile
-        img.edit-profile__avatarImg(src="/" + loggedInUser.avatarUrl )
+        if loggedInUser.socialOnly
+            img.edit-profile__avatarImg(src=loggedInUser.avatarUrl )
+        else 
+            img.edit-profile__avatarImg(src="/" + loggedInUser.avatarUrl )
         form.edit-profile__form(method="POST", enctype="multipart/form-data") 
             label.edit-profile__input.avatar__text(for="avatar") 당신의 아바타를 넣어주세요
             input.edit-profile__input(type="file",id="avatar",name="avatar", accept="image/*")
