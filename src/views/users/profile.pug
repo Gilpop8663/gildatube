@@ -3,8 +3,8 @@ include ../mixins/video
 
 block content
     div.user-profile
-        if loggedInUser.socialOnly
-            img.edit-profile__avatarImg(src=loggedInUser.avatarUrl )
+        if isHeroku 
+            img.edit-profile__avatarImg(src="/"+loggedInUser.avatarUrl )
         else 
             img.edit-profile__avatarImg(src= loggedInUser.avatarUrl )
         div.user-profile__username #{loggedInUser.username}의 Profile

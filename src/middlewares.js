@@ -8,11 +8,17 @@ const s3 = new aws.S3({
         secretAccessKey:process.env.AWS_SECRET,
     }
 })
+const isHeroku = process.env.NODE_ENV ==="produciton"
 
-const multerUpload = multerS3({
+const multerImgUpload = multerS3({
       s3: s3,
-      bucket: 'gildatube',
+      bucket: 'gildatube/images',
       acl: 'public-read',});
+
+const multerVideoUpload = multerS3({
+    s3: s3,
+    bucket: 'gildatube/videos',
+    acl: 'public-read',});
 
 export const localsMiddleware = (req,res,next) =>{
     // console.log(req.session);
@@ -20,6 +26,7 @@ export const localsMiddleware = (req,res,next) =>{
     res.locals.siteName = "GildaTube";
     res.locals.loggedInUser = req.session.user || {};
     // console.log(req.session.user)
+    res.locals.isHeroku = isHeroku;
     next();
 }
 
@@ -41,5 +48,5 @@ export const publicOnlyMiddleware = (req,res,next) =>{
     }
 }
 
-export const avatarUpload = multer({ dest: 'uploads/avatars/', limits:{ fileSize:3000000,},storage:multerUpload ,});
-export const videoUpload = multer({ dest: 'uploads/videos/' , limits:{ fileSize:10000000,},storage:multerUpload,});
+export const avatarUpload = multer({ dest: 'uploads/avatars/', limits:{ fileSize:3000000,},storage: isHeroku ? multerImgUpload  : undefined,});
+export const videoUpload = multer({ dest: 'uploads/videos/' , limits:{ fileSize:10000000,},storage: isHeroku ? multerVideoUpload : undefined,});

@@ -2,8 +2,8 @@ extends base
 
 block content 
     div.edit-profile
-        if loggedInUser.socialOnly
-            img.edit-profile__avatarImg(src=loggedInUser.avatarUrl )
+        if isHeroku
+            img.edit-profile__avatarImg(src="/"+loggedInUser.avatarUrl )
         else 
             img.edit-profile__avatarImg(src= loggedInUser.avatarUrl )
         form.edit-profile__form(method="POST", enctype="multipart/form-data") 

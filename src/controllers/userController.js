@@ -155,8 +155,8 @@ export const postEdit = async (req,res) =>{
 //         errorMessage: "This username/email is already taken.",
 //       });
 //     };
-
-const updatedUser =await User.findByIdAndUpdate(_id,{ avatarUrl: file ? file.location : avatarUrl,
+const isHeroku = process.env.NODE_ENV ==="produciton"
+const updatedUser =await User.findByIdAndUpdate(_id,{ avatarUrl: file ?( isHeroku ? file.location : file.path): avatarUrl,
     name,email,username,location
   },{new:true}
   );
