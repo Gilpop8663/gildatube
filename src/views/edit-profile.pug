@@ -2,7 +2,7 @@ extends base
 
 block content 
     div.edit-profile
-        if isHeroku
+        if isHeroku==="production"
             img.edit-profile__avatarImg(src=loggedInUser.avatarUrl )
         else 
             img.edit-profile__avatarImg(src= "/"+loggedInUser.avatarUrl )

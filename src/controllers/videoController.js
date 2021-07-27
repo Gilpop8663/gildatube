@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
+import { isHeroku } from "../middlewares";
 // Video.find({}, (error, videos) =>{};
 
 export const home = async(req,res) =>{
@@ -48,7 +49,6 @@ export const getUpload = (req,res) => {
   return res.render("upload",{ pageTitle : "Upload Video"});
 }
 
-const isHeroku = process.env.NODE_ENV ==="produciton"
 
 export const postUpload = async (req, res) => {
   const { user: { _id } } = req.session;

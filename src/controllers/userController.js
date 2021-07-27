@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 import { token } from "morgan";
 import Video from "../models/Video";
+import { isHeroku } from "../middlewares";
 
 export const getJoin = (req, res) => res.render("join",{pageTitle:"Join"})
 export const postJoin = async (req, res) => {
@@ -157,7 +158,6 @@ export const postEdit = async (req,res) =>{
 //     };
 console.log(process.env.NODE_ENV);
 console.log(file);
-const isHeroku = process.env.NODE_ENV ==="produciton"
 const updatedUser =await User.findByIdAndUpdate(_id,{ avatarUrl: file ?( isHeroku ? file.location : file.path): avatarUrl,
     name,email,username,location
   },{new:true}
