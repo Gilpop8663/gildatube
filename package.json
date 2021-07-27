@@ -4,12 +4,12 @@
   "description": "my first video website",
   "main": "index.js",
   "scripts": {
-    "start":"node build/init.js",
+    "start": "node build/init.js",
     "dev:server": "nodemon",
     "dev:assets": "webpack --mode development -w",
-    "build":"npm run build:server && npm run build:assets",
-    "build:server":"babel src -d build",
-    "build:assets":"webpack --mode=production"
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "@babel/runtime": "^7.14.8",
     "@ffmpeg/core": "^0.8.5",
     "@ffmpeg/ffmpeg": "^0.9.7",
+    "aws-sdk": "^2.954.0",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.4.1",
@@ -36,6 +37,7 @@
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2"
   },

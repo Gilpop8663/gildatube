@@ -3,16 +3,13 @@ include ../mixins/video
 
 block content
     div.user-profile
-        img.user-profile__avatarImg(src="/" + loggedInUser.avatarUrl , alt="")
+        if loggedInUser.socialOnly
+            img.edit-profile__avatarImg(src=loggedInUser.avatarUrl )
+        else 
+            img.edit-profile__avatarImg(src= loggedInUser.avatarUrl )
         div.user-profile__username #{loggedInUser.username}의 Profile
         div.video-grid
             each video in user.videos 
-                +video(video)
-                +video(video)
-                +video(video)
-                +video(video)
-                +video(video)
-                +video(video)
                 +video(video)
             else 
                 li not found video

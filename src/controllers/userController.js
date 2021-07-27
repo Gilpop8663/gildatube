@@ -156,7 +156,7 @@ export const postEdit = async (req,res) =>{
 //       });
 //     };
 
-const updatedUser =await User.findByIdAndUpdate(_id,{ avatarUrl: file ? file.path : avatarUrl,
+const updatedUser =await User.findByIdAndUpdate(_id,{ avatarUrl: file ? file.location : avatarUrl,
     name,email,username,location
   },{new:true}
   );
